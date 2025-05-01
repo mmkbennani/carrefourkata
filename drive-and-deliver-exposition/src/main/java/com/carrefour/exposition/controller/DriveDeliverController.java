@@ -30,7 +30,7 @@ import java.util.UUID;
 @RestController
 @Validated
 @Slf4j
-public class DriveDeliverController extends CustomGlobalExceptionHandler {
+public class DriveDeliverController {
 
     private final Logger logger;
     private final DriveManagement driveManagement;
@@ -76,8 +76,7 @@ public class DriveDeliverController extends CustomGlobalExceptionHandler {
         @Parameter(name = "TimeSlotDto", description = "chooseOption.") @Valid @RequestBody(required = false) TimeSlotDto timeSlotDto
     ) {
         return driveManagement.bookTimeSlot(Mono.just(timeSlotDto))
-            .map(timeSlotResponse ->  ResponseEntity.status(HttpStatus.OK).body((TimeSlotDto) timeSlotResponse))
-            .onErrorResume(CarrefourException.class, Mono::error);
+            .map(timeSlotResponse ->  ResponseEntity.status(HttpStatus.OK).body(timeSlotResponse));
     }
 
     @Operation(
@@ -122,12 +121,6 @@ public class DriveDeliverController extends CustomGlobalExceptionHandler {
     ) {
         return driveManagement.chooseDeliveryOption(Mono.just(chooseOptionResource))
             .map(chooseOptionResponse ->  ResponseEntity.status(HttpStatus.OK).body(chooseOptionResponse));
-    }
-
-
-    @Override
-    protected Logger getLogger() {
-        return this.logger;
     }
 
 }
