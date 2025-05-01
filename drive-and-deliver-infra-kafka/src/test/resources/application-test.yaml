@@ -1,0 +1,37 @@
+logging:
+  level:
+    org:
+      apache:
+        http: "DEBUG"
+    reactor:
+      netty:
+        http:
+          client: "DEBUG"
+
+server:
+  port: 8092
+
+management:
+  endpoints:
+    enabled-by-default: false
+    web:
+      base-path: "/"
+      path-mapping:
+        health: "-"
+      exposure:
+        include: health
+  endpoint:
+    health:
+      enabled: true
+      probes:
+        enabled: true
+      group:
+        liveness:
+          additional-path: "server:/healthy"
+          show-components: always
+          include: livenessState
+        readiness:
+          additional-path: "server:/ready"
+          show-components: always
+          include: readinessState
+

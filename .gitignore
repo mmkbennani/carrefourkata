@@ -1,0 +1,19 @@
+# Project
+/.classpath
+/.project
+/.settings/
+**/target/
+
+# IDE
+*.iml
+.idea
+*.swp
+
+# Direnv
+.envrc
+application-local.yaml
+
+# Apple
+Chart.lock
+*.tgz
+.DS_Store
